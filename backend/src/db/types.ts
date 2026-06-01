@@ -9,11 +9,34 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
-export interface Patients {
+export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+
+export interface Notes {
+  audioFilePath: string | null;
+  createdAt: Generated<Timestamp>;
   id: Generated<string>;
+  patientId: string;
+  processedText: string | null;
+  rawText: string | null;
+}
+
+export interface Patients {
+  address: string | null;
+  createdAt: Generated<Timestamp>;
+  dob: Timestamp;
+  emergencyContactName: string | null;
+  emergencyContactPhone: string | null;
+  gender: string;
+  id: Generated<string>;
+  insuranceId: string | null;
+  insuranceProvider: string | null;
+  mrn: string;
   name: string;
+  phone: string | null;
+  primaryPhysician: string | null;
 }
 
 export interface DB {
+  notes: Notes;
   patients: Patients;
 }
