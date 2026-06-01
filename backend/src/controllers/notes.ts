@@ -1,6 +1,8 @@
 import { Elysia, status, t } from "elysia";
 
 import { db } from "../db/index.ts";
+import { structureAsSOAP } from "../lib/soap.ts";
+import { transcribeAudio } from "../lib/transcribe.ts";
 
 const patientSchema = t.Object({
   id: t.String(),
@@ -89,10 +91,58 @@ function mapNoteRow({
 export type NoteResponse = ReturnType<typeof mapNoteRow>;
 
 export const notesController = new Elysia({ prefix: "/notes" })
+  .post(
+    "/",
+    async ({ body }) => {
+      const { patientId, text, audioBase64 } = body;
+
+      if (!text && !audioBase64) return status(400, "Provide text or audio");
+
+      const patient = await db
+        .selectFrom("patients")
+        .select("id")
+        .where("id", "=", patientId)
+        .executeTakeFirst();
+
+      if (!patient) return status(404, "Patient not found");
+
+      const audioFilePath: string | null = null;
+      // TODO: save audio to uploads/ (or S3) → audioFilePath
+
+      let rawText: string | null = text ?? null;
+
+      if (audioBase64) {
+        rawText = await transcribeAudio(audioBase64);
+      }
+
+      const processedText = rawText ? await structureAsSOAP(rawText) : null;
+
+      const row = await db
+        .insertInto("notes")
+        .values({ patientId, rawText, processedText, audioFilePath })
+        .returningAll()
+        .executeTakeFirstOrThrow();
+
+      const noteRow = await noteBaseQuery.where("notes.id", "=", row.id).executeTakeFirstOrThrow();
+      return mapNoteRow(noteRow);
+    },
+    {
+      body: t.Object({
+        patientId: t.String(),
+        text: t.Optional(t.String()),
+        audioBase64: t.Optional(t.String()),
+      }),
+      response: {
+        200: noteSchema,
+        400: t.String(),
+        404: t.String(),
+      },
+    },
+  )
   .get(
     "/",
     async () => {
-      const rows = await noteBaseQuery.execute();
+      const rows = await noteBaseQuery.orderBy("notes.createdAt", "desc").execute();
       return rows.map(mapNoteRow);
     },
     {

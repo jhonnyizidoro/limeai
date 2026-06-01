@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const envSchema = z.object({
   isProd: z.boolean(),
+  openAiKey: z.string(),
   db: z.object({
     user: z.string(),
     password: z.string(),
@@ -13,6 +14,7 @@ const envSchema = z.object({
 
 export default envSchema.parse({
   isProd: process.env.NODE_ENV === "production",
+  openAiKey: process.env.OPEN_AI_KEY,
   db: {
     user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,

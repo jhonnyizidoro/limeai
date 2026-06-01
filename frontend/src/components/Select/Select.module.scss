@@ -1,0 +1,36 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select {
+  appearance: none;
+  background: var(--surface, #1a1a1a);
+  border: 1px solid var(--border, #333);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.9rem;
+  padding: 0.5rem 2.25rem 0.5rem 0.75rem;
+  width: 100%;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: var(--text);
+  }
+
+  option {
+    background: var(--surface, #1a1a1a);
+  }
+}
+
+.icon {
+  pointer-events: none;
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted, #888);
+}

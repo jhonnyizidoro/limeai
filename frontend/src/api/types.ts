@@ -29,7 +29,7 @@ export interface paths {
         };
         get: operations["getNotes"];
         put?: never;
-        post?: never;
+        post: operations["postNotes"];
         delete?: never;
         options?: never;
         head?: never;
@@ -80,12 +80,15 @@ export interface operations {
                 content: {
                     "application/json": {
                         id: string;
+                        name: string;
                     }[];
                     "multipart/form-data": {
                         id: string;
+                        name: string;
                     }[];
                     "text/plain": {
                         id: string;
+                        name: string;
                     }[];
                 };
             };
@@ -174,6 +177,121 @@ export interface operations {
                             createdAt: Record<string, never> | string | number;
                         };
                     }[];
+                };
+            };
+        };
+    };
+    postNotes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    patientId: string;
+                    text?: string;
+                    audioBase64?: string;
+                };
+                "multipart/form-data": {
+                    patientId: string;
+                    text?: string;
+                    audioBase64?: string;
+                };
+                "text/plain": {
+                    patientId: string;
+                    text?: string;
+                    audioBase64?: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        id: string;
+                        patientId: string;
+                        rawText: (string | null) | null;
+                        processedText: (string | null) | null;
+                        audioFilePath: (string | null) | null;
+                        createdAt: Record<string, never> | string | number;
+                        patient: {
+                            id: string;
+                            name: string;
+                            mrn: string;
+                            dob: Record<string, never> | string | number;
+                            gender: string;
+                            address: (string | null) | null;
+                            phone: (string | null) | null;
+                            insuranceId: (string | null) | null;
+                            insuranceProvider: (string | null) | null;
+                            emergencyContactName: (string | null) | null;
+                            emergencyContactPhone: (string | null) | null;
+                            primaryPhysician: (string | null) | null;
+                            createdAt: Record<string, never> | string | number;
+                        };
+                    };
+                    "multipart/form-data": {
+                        id: string;
+                        patientId: string;
+                        rawText: (string | null) | null;
+                        processedText: (string | null) | null;
+                        audioFilePath: (string | null) | null;
+                        createdAt: Record<string, never> | string | number;
+                        patient: {
+                            id: string;
+                            name: string;
+                            mrn: string;
+                            dob: Record<string, never> | string | number;
+                            gender: string;
+                            address: (string | null) | null;
+                            phone: (string | null) | null;
+                            insuranceId: (string | null) | null;
+                            insuranceProvider: (string | null) | null;
+                            emergencyContactName: (string | null) | null;
+                            emergencyContactPhone: (string | null) | null;
+                            primaryPhysician: (string | null) | null;
+                            createdAt: Record<string, never> | string | number;
+                        };
+                    };
+                    "text/plain": {
+                        id: string;
+                        patientId: string;
+                        rawText: (string | null) | null;
+                        processedText: (string | null) | null;
+                        audioFilePath: (string | null) | null;
+                        createdAt: Record<string, never> | string | number;
+                        patient: {
+                            id: string;
+                            name: string;
+                            mrn: string;
+                            dob: Record<string, never> | string | number;
+                            gender: string;
+                            address: (string | null) | null;
+                            phone: (string | null) | null;
+                            insuranceId: (string | null) | null;
+                            insuranceProvider: (string | null) | null;
+                            emergencyContactName: (string | null) | null;
+                            emergencyContactPhone: (string | null) | null;
+                            primaryPhysician: (string | null) | null;
+                            createdAt: Record<string, never> | string | number;
+                        };
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                    "multipart/form-data": string;
+                    "text/plain": string;
                 };
             };
         };

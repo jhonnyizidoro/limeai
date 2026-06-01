@@ -1,4 +1,5 @@
 import { Elysia, t } from "elysia";
+
 import { db } from "../db/index.ts";
 
 export const patientsController = new Elysia({ prefix: "/patients" }).get(
@@ -9,6 +10,7 @@ export const patientsController = new Elysia({ prefix: "/patients" }).get(
       200: t.Array(
         t.Object({
           id: t.String(),
+          name: t.String(),
         }),
       ),
     },

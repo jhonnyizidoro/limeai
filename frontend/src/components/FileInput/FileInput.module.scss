@@ -1,0 +1,45 @@
+.hiddenInput {
+  display: none;
+}
+
+.dropZone {
+  align-items: center;
+  background: var(--surface, #1a1a1a);
+  border: 1.5px dashed var(--border, #333);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  transition: border-color 0.15s;
+  width: 100%;
+
+  &:hover {
+    border-color: var(--text);
+  }
+}
+
+.icon {
+  color: var(--text-muted, #888);
+  height: 2rem;
+  width: 2rem;
+}
+
+.fileName {
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.placeholder {
+  color: var(--text-muted, #888);
+  font-size: 0.875rem;
+}
+
+.hint {
+  color: var(--text-muted, #666);
+  font-size: 0.8rem;
+}

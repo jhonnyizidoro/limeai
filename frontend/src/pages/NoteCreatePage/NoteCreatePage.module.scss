@@ -1,0 +1,100 @@
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.backButton {
+  background: var(--text);
+  color: #0d0d0d;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 640px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+
+.toggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border, #333);
+  border-radius: 6px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.toggleBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #888);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+
+  &.active {
+    background: var(--text);
+    color: #0d0d0d;
+  }
+
+  &:not(.active):hover {
+    background: var(--surface-hover, #222);
+  }
+}
+
+.error {
+  color: #e55;
+  font-size: 0.875rem;
+}
+
+.submit {
+  align-self: flex-start;
+  background: var(--text);
+  border: none;
+  border-radius: 6px;
+  color: #0d0d0d;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  &:not(:disabled):hover {
+    opacity: 0.88;
+  }
+}
