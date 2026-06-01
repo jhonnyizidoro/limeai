@@ -66,6 +66,11 @@ const execute = async <P extends keyof paths, M extends Method>(
     }),
   });
 
+  if (!res.ok) {
+    const message = await res.text().catch(() => `Request failed (${res.status})`);
+    throw new Error(message || `Request failed (${res.status})`);
+  }
+
   return res.json() as Promise<ResponseBody<P, M>>;
 };
 

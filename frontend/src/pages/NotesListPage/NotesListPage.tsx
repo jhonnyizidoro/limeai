@@ -28,11 +28,14 @@ const NotesListPage: FC = () => {
         {data?.map((note) => (
           <Card
             key={note.id}
+            id={note.id}
             createdAt={String(note.createdAt)}
             patientName={note.patient.name}
             mrn={note.patient.mrn}
-            content={note.processedText || note.rawText}
+            content={note.rawText}
             doctor={note.patient.primaryPhysician}
+            hasSoap={!!note.processedText}
+            hasAudio={!!note.audioFilePath}
           />
         ))}
       </div>

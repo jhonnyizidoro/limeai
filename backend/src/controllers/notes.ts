@@ -1,8 +1,11 @@
 import { Elysia, status, t } from "elysia";
 
+import { tryCatch } from "@/lib/tryCatch";
+
 import { db } from "../db/index.ts";
+import { uploadAudio } from "../lib/s3";
 import { structureAsSOAP } from "../lib/soap.ts";
-import { transcribeAudio } from "../lib/transcribe.ts";
+import { transcribeAudio } from "../lib/transcribe";
 
 const patientSchema = t.Object({
   id: t.String(),
@@ -106,22 +109,36 @@ export const notesController = new Elysia({ prefix: "/notes" })
 
       if (!patient) return status(404, "Patient not found");
 
-      const audioFilePath: string | null = null;
-      // TODO: save audio to uploads/ (or S3) → audioFilePath
-
-      let rawText: string | null = text ?? null;
-
+      let audioFilePath: string | null = null;
       if (audioBase64) {
-        rawText = await transcribeAudio(audioBase64);
+        const [err, path] = await tryCatch(uploadAudio(audioBase64));
+        if (err) return status(500, "Failed to upload audio to storage");
+        audioFilePath = path;
       }
 
-      const processedText = rawText ? await structureAsSOAP(rawText) : null;
+      let rawText: string | null = text ?? null;
+      if (audioBase64) {
+        const [err, transcript] = await tryCatch(transcribeAudio(audioBase64));
+        if (err) return status(500, "Failed to transcribe audio");
+        rawText = transcript;
+      }
 
-      const row = await db
-        .insertInto("notes")
-        .values({ patientId, rawText, processedText, audioFilePath })
-        .returningAll()
-        .executeTakeFirstOrThrow();
+      let processedText: string | null = null;
+      if (rawText) {
+        const [err, soap] = await tryCatch(structureAsSOAP(rawText));
+        if (err) return status(500, "Failed to structure note");
+        processedText = soap;
+      }
+
+      const [dbErr, row] = await tryCatch(
+        db
+          .insertInto("notes")
+          .values({ patientId, rawText, processedText, audioFilePath })
+          .returningAll()
+          .executeTakeFirstOrThrow(),
+      );
+
+      if (dbErr) return status(500, "Failed to save note");
 
       const noteRow = await noteBaseQuery.where("notes.id", "=", row.id).executeTakeFirstOrThrow();
       return mapNoteRow(noteRow);
@@ -136,6 +153,7 @@ export const notesController = new Elysia({ prefix: "/notes" })
         200: noteSchema,
         400: t.String(),
         404: t.String(),
+        500: t.String(),
       },
     },
   )

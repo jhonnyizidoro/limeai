@@ -3,6 +3,12 @@ import { z } from "zod";
 const envSchema = z.object({
   isProd: z.boolean(),
   openAiKey: z.string(),
+  aws: z.object({
+    accessKey: z.string(),
+    secretKey: z.string(),
+    bucket: z.string(),
+    region: z.string(),
+  }),
   db: z.object({
     user: z.string(),
     password: z.string(),
@@ -21,5 +27,11 @@ export default envSchema.parse({
     name: process.env.POSTGRES_DB,
     port: process.env.POSTGRES_PORT,
     host: process.env.POSTGRES_HOST,
+  },
+  aws: {
+    accessKey: process.env.AWS_ACCESS_KEY,
+    secretKey: process.env.AWS_SECRET_KEY,
+    bucket: process.env.AWS_BUCKET,
+    region: process.env.AWS_REGION,
   },
 });

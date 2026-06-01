@@ -1,7 +1,7 @@
 import type { ChangeEvent, FC } from "react";
 import { useRef } from "react";
 
-import styles from "./Card.module.scss";
+import styles from "./FileInput.module.scss";
 
 type Props = {
   id?: string;

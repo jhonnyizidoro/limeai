@@ -1,10 +1,4 @@
-import OpenAI from "openai";
-
-import env from "../env.ts";
-
-const openai = new OpenAI({ apiKey: env.openAiKey });
-
-function detectMimeType(buf: Buffer): { mimeType: string; ext: string } {
+export function detectMimeType(buf: Buffer): { mimeType: string; ext: string } {
   const b = (i: number) => buf[i] ?? 0;
 
   if (b(0) === 0x49 && b(1) === 0x44 && b(2) === 0x33)
@@ -20,17 +14,4 @@ function detectMimeType(buf: Buffer): { mimeType: string; ext: string } {
     return { mimeType: "audio/webm", ext: "webm" };
 
   return { mimeType: "audio/webm", ext: "webm" };
-}
-
-export async function transcribeAudio(base64: string): Promise<string> {
-  const buffer = Buffer.from(base64, "base64");
-  const { mimeType, ext } = detectMimeType(buffer);
-  const file = new File([buffer], `audio.${ext}`, { type: mimeType });
-
-  const result = await openai.audio.transcriptions.create({
-    file,
-    model: "whisper-1",
-  });
-
-  return result.text;
 }

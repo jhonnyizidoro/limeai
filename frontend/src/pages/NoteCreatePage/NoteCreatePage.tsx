@@ -8,18 +8,11 @@ import Select from "@/components/Select/Select";
 import Spinner from "@/components/Spinner";
 import Textarea from "@/components/Textarea/Textarea";
 import { cn } from "@/utils/cn";
+import { fileToBase64 } from "@/utils/fileToBase64";
 
 import styles from "./NoteCreatePage.module.scss";
 
 type InputMode = "text" | "audio";
-
-const fileToBase64 = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve((reader.result as string).split(",")[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 
 const NoteCreatePage: FC = () => {
   const navigate = useNavigate();

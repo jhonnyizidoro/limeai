@@ -2,7 +2,7 @@ import type { FC, SelectHTMLAttributes } from "react";
 
 import { cn } from "@/utils/cn";
 
-import styles from "./Card.module.scss";
+import styles from "./Select.module.scss";
 
 type Props = SelectHTMLAttributes<HTMLSelectElement>;
 

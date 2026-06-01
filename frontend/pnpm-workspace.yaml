@@ -1,5 +1,6 @@
 allowBuilds:
-  '@parcel/watcher': set this to true or false
+  '@parcel/watcher': true
+
 minimumReleaseAgeExclude:
   - '@vitest/expect@4.1.8'
   - '@vitest/mocker@4.1.8'

@@ -1,0 +1,112 @@
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.backButton {
+  background: var(--text);
+  color: #0d0d0d;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section {
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #57534e;
+}
+
+.patientGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.875rem 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #57534e;
+  font-weight: 500;
+}
+
+.value {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.noteDate {
+  font-size: 0.75rem;
+  color: #57534e;
+}
+
+.audioPlayer {
+  width: 100%;
+  accent-color: #a3e635;
+  border-radius: 6px;
+}
+
+.soapText {
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: #a8a29e;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.rawText {
+  font-size: 0.875rem;
+  color: #78716c;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.notFound {
+  font-size: 0.875rem;
+  color: #57534e;
+  font-style: italic;
+}
