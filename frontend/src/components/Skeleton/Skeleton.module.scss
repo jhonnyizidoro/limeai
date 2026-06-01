@@ -1,0 +1,27 @@
+@keyframes animate {
+  from {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
+}
+
+.skeleton {
+  border-radius: 10px;
+  animation: animate 1.4s ease infinite;
+  background-size: 400% 100%;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 15%,
+    rgba(255, 255, 255, 0.05) 27%,
+    rgba(255, 255, 255, 0.03) 53%
+  );
+}
+
+.skeletonParent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
