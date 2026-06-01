@@ -1,12 +1,14 @@
-import { Elysia } from "elysia";
 import { node } from "@elysia/node";
+import { cors } from "@elysiajs/cors";
 import { swagger } from "@elysiajs/swagger";
+import { Elysia } from "elysia";
+
+import { notesController } from "./controllers/notes.ts";
+import { patientsController } from "./controllers/patients.ts";
 import { generateTypes } from "./db/scripts/generate-types.ts";
 import { migrate } from "./db/scripts/migrate.ts";
 import { seed } from "./db/scripts/seed.ts";
 import env from "./env.ts";
-import { patientsController } from "./controllers/patients.ts";
-import { notesController } from "./controllers/notes.ts";
 
 if (!env.isProd) {
   await migrate();
@@ -15,6 +17,7 @@ if (!env.isProd) {
 }
 
 export const app = new Elysia({ adapter: node() })
+  .use(cors())
   .use(swagger())
   .use(patientsController)
   .use(notesController)

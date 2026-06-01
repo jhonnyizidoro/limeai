@@ -3,4 +3,5 @@ packages:
   - backend
 
 onlyBuiltDependencies:
+  - '@parcel/watcher'
   - esbuild

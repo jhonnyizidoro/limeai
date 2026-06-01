@@ -1,11 +1,12 @@
-import { Elysia, t, status } from "elysia";
+import { Elysia, status, t } from "elysia";
+
 import { db } from "../db/index.ts";
 
 export const notesController = new Elysia({ prefix: "/notes" })
   .get(
     "/",
-    () => {
-      const res = db.selectFrom("notes").select("id").execute();
+    async () => {
+      const res = await db.selectFrom("notes").select("id").execute();
       return res;
     },
     {
