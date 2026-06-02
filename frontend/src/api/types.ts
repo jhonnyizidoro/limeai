@@ -4,395 +4,395 @@
  */
 
 export interface paths {
-    "/patients/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getPatients"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/patients/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/notes/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getNotes"];
-        put?: never;
-        post: operations["postNotes"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["getPatients"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/notes/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/notes/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getNotesById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["getNotes"];
+    put?: never;
+    post: operations["postNotes"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/notes/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    get: operations["getNotesById"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: never;
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+  schemas: never;
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    getPatients: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        id: string;
-                        name: string;
-                    }[];
-                    "multipart/form-data": {
-                        id: string;
-                        name: string;
-                    }[];
-                    "text/plain": {
-                        id: string;
-                        name: string;
-                    }[];
-                };
-            };
-        };
+  getPatients: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    getNotes: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    }[];
-                    "multipart/form-data": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    }[];
-                    "text/plain": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    }[];
-                };
-            };
+        content: {
+          "application/json": {
+            id: string;
+            name: string;
+          }[];
+          "multipart/form-data": {
+            id: string;
+            name: string;
+          }[];
+          "text/plain": {
+            id: string;
+            name: string;
+          }[];
         };
+      };
     };
-    postNotes: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    patientId: string;
-                    text?: string;
-                    audioBase64?: string;
-                };
-                "multipart/form-data": {
-                    patientId: string;
-                    text?: string;
-                    audioBase64?: string;
-                };
-                "text/plain": {
-                    patientId: string;
-                    text?: string;
-                    audioBase64?: string;
-                };
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    };
-                    "multipart/form-data": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    };
-                    "text/plain": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    };
-                };
-            };
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": string;
-                    "multipart/form-data": string;
-                    "text/plain": string;
-                };
-            };
-        };
+  };
+  getNotes: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    getNotesById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    };
-                    "multipart/form-data": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    };
-                    "text/plain": {
-                        id: string;
-                        patientId: string;
-                        rawText: (string | null) | null;
-                        processedText: (string | null) | null;
-                        audioFilePath: (string | null) | null;
-                        createdAt: Record<string, never> | string | number;
-                        patient: {
-                            id: string;
-                            name: string;
-                            mrn: string;
-                            dob: Record<string, never> | string | number;
-                            gender: string;
-                            address: (string | null) | null;
-                            phone: (string | null) | null;
-                            insuranceId: (string | null) | null;
-                            insuranceProvider: (string | null) | null;
-                            emergencyContactName: (string | null) | null;
-                            emergencyContactPhone: (string | null) | null;
-                            primaryPhysician: (string | null) | null;
-                            createdAt: Record<string, never> | string | number;
-                        };
-                    };
-                };
+        content: {
+          "application/json": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
             };
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": string;
-                    "multipart/form-data": string;
-                    "text/plain": string;
-                };
+          }[];
+          "multipart/form-data": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
             };
+          }[];
+          "text/plain": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
+            };
+          }[];
         };
+      };
     };
+  };
+  postNotes: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          patientId: string;
+          text?: string;
+          audioBase64?: string;
+        };
+        "multipart/form-data": {
+          patientId: string;
+          text?: string;
+          audioBase64?: string;
+        };
+        "text/plain": {
+          patientId: string;
+          text?: string;
+          audioBase64?: string;
+        };
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
+            };
+          };
+          "multipart/form-data": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
+            };
+          };
+          "text/plain": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
+            };
+          };
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": string;
+          "multipart/form-data": string;
+          "text/plain": string;
+        };
+      };
+    };
+  };
+  getNotesById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
+            };
+          };
+          "multipart/form-data": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
+            };
+          };
+          "text/plain": {
+            id: string;
+            patientId: string;
+            rawText: (string | null) | null;
+            processedText: (string | null) | null;
+            audioFilePath: (string | null) | null;
+            createdAt: Record<string, never> | string | number;
+            patient: {
+              id: string;
+              name: string;
+              mrn: string;
+              dob: Record<string, never> | string | number;
+              gender: string;
+              address: (string | null) | null;
+              phone: (string | null) | null;
+              insuranceId: (string | null) | null;
+              insuranceProvider: (string | null) | null;
+              emergencyContactName: (string | null) | null;
+              emergencyContactPhone: (string | null) | null;
+              primaryPhysician: (string | null) | null;
+              createdAt: Record<string, never> | string | number;
+            };
+          };
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": string;
+          "multipart/form-data": string;
+          "text/plain": string;
+        };
+      };
+    };
+  };
 }
