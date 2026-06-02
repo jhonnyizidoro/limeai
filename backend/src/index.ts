@@ -12,11 +12,9 @@ import { migrate } from "./db/scripts/migrate.ts";
 import { seed } from "./db/scripts/seed.ts";
 import env from "./env.ts";
 
-if (!env.isProd) {
-  await migrate();
-  generateTypes();
-  await seed();
-}
+await migrate();
+if (!env.isProd) generateTypes();
+await seed();
 
 export const app = new Elysia({ adapter: node() })
   .use(cors())

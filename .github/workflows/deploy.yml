@@ -1,0 +1,50 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          OPEN_AI_KEY: ${{ secrets.OPEN_AI_KEY }}
+          STORAGE_TYPE: ${{ secrets.STORAGE_TYPE }}
+          UPLOADS_URL: ${{ secrets.UPLOADS_URL }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: POSTGRES_USER,POSTGRES_PASSWORD,POSTGRES_DB,POSTGRES_PORT,OPEN_AI_KEY,STORAGE_TYPE,UPLOADS_URL,AWS_ACCESS_KEY,AWS_SECRET_KEY,AWS_BUCKET,AWS_REGION,VITE_API_URL
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            cat > .env << EOF
+            POSTGRES_USER=${POSTGRES_USER}
+            POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            POSTGRES_DB=${POSTGRES_DB}
+            POSTGRES_PORT=${POSTGRES_PORT:-5432}
+            POSTGRES_HOST=postgres
+            OPEN_AI_KEY=${OPEN_AI_KEY}
+            STORAGE_TYPE=${STORAGE_TYPE:-local}
+            UPLOADS_URL=${UPLOADS_URL}
+            AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+            AWS_SECRET_KEY=${AWS_SECRET_KEY}
+            AWS_BUCKET=${AWS_BUCKET}
+            AWS_REGION=${AWS_REGION:-us-east-1}
+            VITE_API_URL=${VITE_API_URL}
+            EOF
+            git pull origin main
+            docker compose -f docker-compose.prod.yml up --build -d

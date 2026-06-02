@@ -1,6 +1,7 @@
+import type { Insertable } from "kysely";
+
 import { db } from "../index.ts";
 import type { DB } from "../types.ts";
-import type { Insertable } from "kysely";
 
 type NewPatient = Insertable<DB["patients"]>;
 type NewNote = Insertable<DB["notes"]>;

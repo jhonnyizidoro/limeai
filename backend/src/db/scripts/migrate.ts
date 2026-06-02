@@ -1,6 +1,8 @@
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
+
 import { FileMigrationProvider, Migrator } from "kysely/migration";
+
 import { db } from "../index.ts";
 
 export const migrate = async () => {
