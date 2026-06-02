@@ -74,6 +74,7 @@ jobs:
             AWS_REGION=${AWS_REGION:-us-east-1}
             VITE_API_URL=${VITE_API_URL}
             EOF
+            git pull origin main
             echo ${GHCR_TOKEN} | docker login ghcr.io -u ${GHCR_USER} --password-stdin
             docker compose -f docker-compose.prod.yml pull
             docker compose -f docker-compose.prod.yml up -d
