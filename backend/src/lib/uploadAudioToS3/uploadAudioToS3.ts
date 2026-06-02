@@ -2,7 +2,7 @@ import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { randomUUID } from "crypto";
 
 import env from "../../env.ts";
-import { detectMimeType } from "../../utils/detectMimeType";
+import { detectMimeType } from "../../utils/detectMimeType/index.ts";
 
 const s3 = new S3Client({
   region: env.aws.region,
@@ -12,7 +12,7 @@ const s3 = new S3Client({
   },
 });
 
-export async function uploadAudio(base64: string): Promise<string> {
+export async function uploadAudioToS3(base64: string): Promise<string> {
   const buffer = Buffer.from(base64, "base64");
   const { mimeType, ext } = detectMimeType(buffer);
   const key = `audio/${randomUUID()}.${ext}`;

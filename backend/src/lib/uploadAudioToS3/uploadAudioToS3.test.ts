@@ -27,9 +27,13 @@ vi.mock("../../utils/detectMimeType", () => ({
   detectMimeType: mockDetectMimeType,
 }));
 
-const { uploadAudio } = await import("./s3.ts");
+const { uploadAudioToS3 } = await import("./uploadAudioToS3.ts");
 
-type PutInput = { Body: Buffer; ContentType: string; Key: string };
+interface PutInput {
+  Body: Buffer;
+  ContentType: string;
+  Key: string;
+}
 
 function getLastCmd() {
   const calls = mockSend.mock.calls as unknown as [{ input: PutInput }][];
@@ -47,7 +51,7 @@ describe("uploadAudio", () => {
   it("calls S3 and returns public URL", async () => {
     const base64 = Buffer.from("fake-audio").toString("base64");
 
-    const url = await uploadAudio(base64);
+    const url = await uploadAudioToS3(base64);
 
     assert.equal(mockSend.mock.calls.length, 1);
     assert.match(url, /^https:\/\/.+\.s3\..+\.amazonaws\.com\/audio\/.+/);
@@ -57,7 +61,7 @@ describe("uploadAudio", () => {
     mockDetectMimeType.mockReturnValue({ mimeType: "audio/mpeg", ext: "mp3" });
     const base64 = Buffer.from("fake-mp3").toString("base64");
 
-    const url = await uploadAudio(base64);
+    const url = await uploadAudioToS3(base64);
 
     assert.match(url, /\.mp3$/);
     assert.match(getLastCmd().Key, /\.mp3$/);
@@ -67,7 +71,7 @@ describe("uploadAudio", () => {
     mockDetectMimeType.mockReturnValue({ mimeType: "audio/mpeg", ext: "mp3" });
     const base64 = Buffer.from("fake-mp3").toString("base64");
 
-    await uploadAudio(base64);
+    await uploadAudioToS3(base64);
 
     assert.equal(getLastCmd().ContentType, "audio/mpeg");
   });
@@ -76,14 +80,14 @@ describe("uploadAudio", () => {
     const content = "hello world";
     const base64 = Buffer.from(content).toString("base64");
 
-    await uploadAudio(base64);
+    await uploadAudioToS3(base64);
 
     assert.equal(getLastCmd().Body.toString(), content);
   });
 
   it("uses unique key per upload", async () => {
     const base64 = Buffer.from("data").toString("base64");
-    const urls = await Promise.all([uploadAudio(base64), uploadAudio(base64)]);
+    const urls = await Promise.all([uploadAudioToS3(base64), uploadAudioToS3(base64)]);
 
     assert.notEqual(urls[0], urls[1]);
   });
@@ -92,6 +96,6 @@ describe("uploadAudio", () => {
     mockSend.mockImplementationOnce(() => Promise.reject(new Error("S3 failure")));
     const base64 = Buffer.from("data").toString("base64");
 
-    await assert.rejects(() => uploadAudio(base64), /S3 failure/);
+    await assert.rejects(() => uploadAudioToS3(base64), /S3 failure/);
   });
 });

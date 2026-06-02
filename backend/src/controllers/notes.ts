@@ -1,7 +1,7 @@
 import { Elysia, status, t } from "elysia";
 
-import { uploadAudio } from "@/lib/s3";
 import { tryCatch } from "@/lib/tryCatch";
+import { uploadAudio } from "@/lib/uploadAudio";
 
 import { db } from "../db/index.ts";
 import { structureAsSOAP } from "../lib/soap";

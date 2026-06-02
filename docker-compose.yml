@@ -25,9 +25,17 @@ services:
     volumes:
       - ./backend:/app
       - backend_node_modules:/app/node_modules
+      - ./uploads:/uploads
     depends_on:
       postgres:
         condition: service_healthy
+
+  static:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./uploads:/usr/share/nginx/html
 
   frontend:
     image: node:22-alpine
