@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { beforeEach, describe, it, vi } from "vitest";
 
 const mockSend = vi.hoisted(() => vi.fn(() => Promise.resolve({})));
+const mockDetectMimeType = vi.hoisted(() => vi.fn(() => ({ mimeType: "audio/webm", ext: "webm" })));
 
 vi.mock("@aws-sdk/client-s3", () => ({
   S3Client: class {
@@ -22,11 +23,25 @@ vi.mock("../../env.ts", () => ({
   },
 }));
 
+vi.mock("../../utils/detectMimeType", () => ({
+  detectMimeType: mockDetectMimeType,
+}));
+
 const { uploadAudio } = await import("./s3.ts");
+
+type PutInput = { Body: Buffer; ContentType: string; Key: string };
+
+function getLastCmd() {
+  const calls = mockSend.mock.calls as unknown as [{ input: PutInput }][];
+  const cmd = calls.at(-1)?.[0];
+  assert.ok(cmd);
+  return cmd.input;
+}
 
 describe("uploadAudio", () => {
   beforeEach(() => {
     mockSend.mockClear();
+    mockDetectMimeType.mockReturnValue({ mimeType: "audio/webm", ext: "webm" });
   });
 
   it("calls S3 and returns public URL", async () => {
@@ -35,7 +50,26 @@ describe("uploadAudio", () => {
     const url = await uploadAudio(base64);
 
     assert.equal(mockSend.mock.calls.length, 1);
-    assert.match(url, /^https:\/\/.+\.s3\..+\.amazonaws\.com\/audio\/.+\.webm$/);
+    assert.match(url, /^https:\/\/.+\.s3\..+\.amazonaws\.com\/audio\/.+/);
+  });
+
+  it("uses extension from detectMimeType in key and URL", async () => {
+    mockDetectMimeType.mockReturnValue({ mimeType: "audio/mpeg", ext: "mp3" });
+    const base64 = Buffer.from("fake-mp3").toString("base64");
+
+    const url = await uploadAudio(base64);
+
+    assert.match(url, /\.mp3$/);
+    assert.match(getLastCmd().Key, /\.mp3$/);
+  });
+
+  it("uses ContentType from detectMimeType", async () => {
+    mockDetectMimeType.mockReturnValue({ mimeType: "audio/mpeg", ext: "mp3" });
+    const base64 = Buffer.from("fake-mp3").toString("base64");
+
+    await uploadAudio(base64);
+
+    assert.equal(getLastCmd().ContentType, "audio/mpeg");
   });
 
   it("decodes base64 before upload", async () => {
@@ -44,10 +78,7 @@ describe("uploadAudio", () => {
 
     await uploadAudio(base64);
 
-    const calls = mockSend.mock.calls as unknown as [{ input: { Body: Buffer } }][];
-    const cmd = calls.at(0)?.[0];
-    assert.ok(cmd);
-    assert.equal(cmd.input.Body.toString(), content);
+    assert.equal(getLastCmd().Body.toString(), content);
   });
 
   it("uses unique key per upload", async () => {

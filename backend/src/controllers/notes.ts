@@ -1,10 +1,10 @@
 import { Elysia, status, t } from "elysia";
 
+import { uploadAudio } from "@/lib/s3";
 import { tryCatch } from "@/lib/tryCatch";
 
 import { db } from "../db/index.ts";
-import { uploadAudio } from "../lib/s3";
-import { structureAsSOAP } from "../lib/soap.ts";
+import { structureAsSOAP } from "../lib/soap";
 import { transcribeAudio } from "../lib/transcribe";
 
 const patientSchema = t.Object({
